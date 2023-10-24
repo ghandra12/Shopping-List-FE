@@ -1,13 +1,14 @@
-import logo from "./logo.svg";
 import "./App.css";
-import LoginForm from "./components/LoginForm";
+import LoginForm from "./components/LoginForm/LoginForm";
 import Container from "@mui/material/Container";
 
 function App() {
   return (
-    <Container maxWidth="md">
-      <LoginForm />
-    </Container>
+    <div className="root">
+      <Container maxWidth="md">
+        <LoginForm />
+      </Container>
+    </div>
   );
 }
 
