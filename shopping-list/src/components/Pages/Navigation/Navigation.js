@@ -162,7 +162,6 @@ const Navigation = (props, children) => {
 
       <Main open={open}>
         <DrawerHeader />
-        {children}
       </Main>
     </Box>
   );
