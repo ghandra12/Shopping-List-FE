@@ -1,4 +1,5 @@
 import * as React from "react";
+import { useState, useEffect } from "react";
 import { styled, useTheme } from "@mui/material/styles";
 import Button from "@mui/material/Button";
 
@@ -21,6 +22,7 @@ import ListItemText from "@mui/material/ListItemText";
 import InboxIcon from "@mui/icons-material/MoveToInbox";
 import MailIcon from "@mui/icons-material/Mail";
 import { useNavigate } from "react-router-dom";
+import AppRoutes from "./AppRoutes";
 
 const drawerWidth = 240;
 
@@ -73,10 +75,17 @@ const Navigation = (props, children) => {
   const navigate = useNavigate();
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
+  const [loggedIn, setLoggedIn] = useState(false);
+
+  useEffect(() => {
+    if (localStorage.getItem("authenticated")) {
+      setLoggedIn(true);
+    }
+  }, []);
 
   const logOutHandler = () => {
     localStorage.removeItem("authenticated");
-    props.onLogout();
+    setLoggedIn(false);
     navigate("/login");
   };
 
@@ -93,21 +102,25 @@ const Navigation = (props, children) => {
       <CssBaseline />
       <AppBar position="fixed" open={open}>
         <Toolbar>
-          <IconButton
-            color="inherit"
-            aria-label="open drawer"
-            onClick={handleDrawerOpen}
-            edge="start"
-            sx={{ mr: 2, ...(open && { display: "none" }) }}
-          >
-            <MenuIcon />
-          </IconButton>
+          {loggedIn && (
+            <IconButton
+              color="inherit"
+              aria-label="open drawer"
+              onClick={handleDrawerOpen}
+              edge="start"
+              sx={{ mr: 2, ...(open && { display: "none" }) }}
+            >
+              <MenuIcon />
+            </IconButton>
+          )}
           <Typography variant="h6" noWrap component="div" sx={{ flexGrow: 1 }}>
             Your shopping list
           </Typography>
-          <Button color="inherit" onClick={logOutHandler}>
-            Log Out
-          </Button>
+          {loggedIn && (
+            <Button color="inherit" onClick={logOutHandler}>
+              Log Out
+            </Button>
+          )}
         </Toolbar>
       </AppBar>
       <Drawer
@@ -162,6 +175,7 @@ const Navigation = (props, children) => {
 
       <Main open={open}>
         <DrawerHeader />
+        <AppRoutes loggedIn={loggedIn} setLoggedIn={setLoggedIn} />
       </Main>
     </Box>
   );
