@@ -1,10 +1,12 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "./LoginForm.css";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Grid from "@mui/material/Grid";
 
-export default function LoginForm() {
+export default function LoginForm(props) {
+  const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -19,7 +21,10 @@ export default function LoginForm() {
   const onSubmitHandler = (event) => {
     event.preventDefault();
     if (email.length >= 8 && password.length >= 8) {
-      alert("Logged in!");
+      localStorage.setItem("authenticated", true);
+      console.info(props);
+      props.setLoggedIn(true);
+      navigate("/");
     } else {
       alert("Email and password should have at least 8 characters!");
     }
