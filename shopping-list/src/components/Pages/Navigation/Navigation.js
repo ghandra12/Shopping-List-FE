@@ -19,10 +19,21 @@ import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
-import InboxIcon from "@mui/icons-material/MoveToInbox";
-import MailIcon from "@mui/icons-material/Mail";
 import { useNavigate } from "react-router-dom";
 import AppRoutes from "./AppRoutes";
+
+const routes = [
+  {
+    text: "Home",
+    path: "/",
+    id: "1",
+  },
+  {
+    text: "Add your own category ",
+    path: "/addnewcategory",
+    id: "2",
+  },
+];
 
 const drawerWidth = 240;
 
@@ -97,6 +108,9 @@ const Navigation = (props, children) => {
     setOpen(false);
   };
 
+  const nav = (r) => {
+    navigate(r);
+  };
   return (
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
@@ -147,25 +161,26 @@ const Navigation = (props, children) => {
         </DrawerHeader>
         <Divider />
         <List>
-          {["Inbox", "Starred", "Send email", "Drafts"].map((text, index) => (
-            <ListItem key={text} disablePadding>
+          {routes.map((route) => (
+            <ListItem
+              key={route.id}
+              disablePadding
+              onClick={() => nav(route.path)}
+              text={route.text}
+            >
               <ListItemButton>
-                <ListItemIcon>
-                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                </ListItemIcon>
-                <ListItemText primary={text} />
+                <ListItemIcon></ListItemIcon>
+                <ListItemText primary={route.text} />
               </ListItemButton>
             </ListItem>
           ))}
         </List>
         <Divider />
         <List>
-          {["All mail", "Trash", "Spam"].map((text, index) => (
+          {["Add a new client"].map((text, index) => (
             <ListItem key={text} disablePadding>
               <ListItemButton>
-                <ListItemIcon>
-                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                </ListItemIcon>
+                <ListItemIcon></ListItemIcon>
                 <ListItemText primary={text} />
               </ListItemButton>
             </ListItem>

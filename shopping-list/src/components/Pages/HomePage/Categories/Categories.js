@@ -1,12 +1,12 @@
 import * as React from "react";
-import "./FoodCategory.css";
+import "./Categories.css";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import { Button, CardActionArea, CardActions } from "@mui/material";
 
-const FoodCategory = (props) => {
+const Categories = (props) => {
   return (
     <Card sx={{ maxWidth: 345, height: 330 }}>
       <CardActionArea>
@@ -14,7 +14,8 @@ const FoodCategory = (props) => {
           component="img"
           height="140"
           image={props.image}
-          alt="green iguana"
+          alt={props.alt}
+          src={props.image}
         />
         <CardContent>
           <Typography gutterBottom variant="h5" component="div">
@@ -43,4 +44,4 @@ const FoodCategory = (props) => {
     </Card>
   );
 };
-export default FoodCategory;
+export default Categories;

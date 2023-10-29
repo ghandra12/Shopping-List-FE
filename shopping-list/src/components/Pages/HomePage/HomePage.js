@@ -1,72 +1,92 @@
-import FoodCategory from "./Food/FoodCategory";
 import * as React from "react";
-import { styled } from "@mui/material/styles";
 import Grid from "@mui/material/Grid";
-import Paper from "@mui/material/Paper";
-import Box from "@mui/material/Box";
+import Categories from "./Categories/Categories";
+import { useNavigate } from "react-router-dom";
 
+//import { useNavigate } from "react-router-dom";
+//import { styled } from "@mui/material/styles";
 const categories = [
   {
+    id: 1,
     category: "Meat",
     description:
-      "Meat is a major source of key nutrients, such as high-quality protein, iron, and B vitamins.",
-    image: "",
+      "Meat is a major source of key Meat and poultry are great sources of protein. They also provide lots of other nutrients your body needs, like iodine, iron, zinc, vitamins (especially B12) and essential fatty acids., such as high-quality protein, iron, and B vitamins.",
+    image: "./drinks.jpg",
+    alt: "Meat",
   },
   {
+    id: 2,
     category: "Vegetables",
     description:
-      "Vegetables are important sources of many nutrients, including potassium, dietary fiber, folate, vitamin A, and vitamin C.",
+      "Vegetables are imVegetables are parts of plants that are consumed by humans or other animals as food. The original meaning is still commonly used and is applied to plants collectively to refer to all edible plant matter, including the flowers, fruits, stems, leaves, roots, and seeds.portant sources of many nutrients, including potassium, dietary fiber, folate, vitamin A, and vitamin C.",
     image: "",
+    alt: "Vegetables",
   },
   {
+    id: 3,
     category: "Fruits",
     description:
       "Fruits are an excellent source of essential vitamins and minerals, and they are high in fiber.",
     image: "",
+    alt: "Fruits",
+  },
+
+  {
+    id: 4,
+    category: "Drinks",
+    description:
+      "Drinking enough water each day is crucial for many reasons: to regulate body temperature, keep joints lubricated, prevent infections, deliver nutrients to cells, and keep organs functioning properly. Being well-hydrated also improves sleep quality, cognition, and mood.",
+    image: "",
+    alt: "Drinks",
   },
   {
-    category: "Meat",
+    id: 5,
+    category: "Sweets",
     description:
-      "Meat is a major source of key nutrients, such as high-quality protein, iron, and B vitamins.",
+      "Fruits are an Dessert is a course that concludes a meal. The course consists of sweet foods, such as candy, and possibly a beverage such as dessert wine and liqueur. Some cultures sweeten foods that are more commonly savory to create desserts. In some parts of the world there is no tradition of a dessert course to conclude a meal. source of essential vitamins and minerals, and they are high in fiber.",
     image: "",
+    alt: "Sweets",
   },
   {
-    category: "Vegetables",
+    id: 6,
+    category: "Grains",
     description:
-      "Vegetables are important sources of many nutrients, including potassium, dietary fiber, folate, vitamin A, and vitamin C.",
+      "Whole-grain foods are good choices for a nutritious diet. Whole grains provide fiber, vitamins, minerals and other nutrients. Whole-grain foods help control of cholesterol levels, weight and blood pressure. These foods also help lower the risk of diabetes, heart disease and other conditions.",
     image: "",
+    alt: "Grains",
   },
   {
-    category: "Fruits",
+    id: 7,
+    category: "Dairy",
     description:
-      "Fruits are an excellent source of essential vitamins and minerals, and they are high in fiber.",
+      "Milk products are an excellent Dairy products, also known as lacticinia, are food products made from milk. The most common dairy animals are cow, water buffalo, nanny goat, and ewe. Dairy products include common grocery store food items in the Western world such as yogurt, cheese, milk and butter. of essential vitamins and minerals, and they are high in fiber.",
     image: "",
-  },
-  {
-    category: "Vegetables",
-    description:
-      "Vegetables are important sources of many nutrients, including potassium, dietary fiber, folate, vitamin A, and vitamin C.",
-    image: "",
-  },
-  {
-    category: "Fruits",
-    description:
-      "Fruits are an excellent source of essential vitamins and minerals, and they are high in fiber.",
-    image: "",
+    alt: "Dairy",
   },
 ];
+
 const HomePage = (props) => {
+  const navigate = useNavigate();
+
+  const onClickHandler = (categoryId) => {
+    navigate("/products", { state: { categoryId: categoryId } });
+  };
+
   return (
     <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
       {categories.map((category, index) => (
-        <Grid item xs={3} key={index}>
-          {/* <Item> */}
-          <FoodCategory
+        <Grid
+          item
+          xs={3}
+          key={index}
+          onClick={() => onClickHandler(category.id)}
+        >
+          <Categories
             description={category.description}
             category={category.category}
             image={category.image}
+            alt={category.alt}
           />
-          {/* </Item> */}
         </Grid>
       ))}
     </Grid>

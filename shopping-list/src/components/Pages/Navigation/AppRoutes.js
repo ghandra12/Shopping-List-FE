@@ -1,7 +1,8 @@
 import HomePage from "../HomePage/HomePage";
 import LoginForm from "../LoginForm/LoginForm";
 import { Navigate, Routes, Route } from "react-router-dom";
-
+import AddCategoryForm from "../AddCategoryPage/AddCategoryForm";
+import Products from "../Products/Products";
 const ProtectedRoute = ({ redirectPath = "/login", children }) => {
   if (!localStorage.getItem("authenticated")) {
     return <Navigate to={redirectPath} replace />;
@@ -33,6 +34,24 @@ function AppRoutes({ loggedIn, setLoggedIn }) {
           )
         }
       />
+      <Route
+        exact
+        path="/addnewcategory"
+        element={
+          <ProtectedRoute>
+            <AddCategoryForm />
+          </ProtectedRoute>
+        }
+      ></Route>
+      <Route
+        exact
+        path="/products"
+        element={
+          <ProtectedRoute>
+            <Products />
+          </ProtectedRoute>
+        }
+      ></Route>
     </Routes>
   );
 }
