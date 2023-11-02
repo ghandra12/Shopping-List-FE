@@ -2,7 +2,8 @@ import * as React from "react";
 import { useState, useEffect } from "react";
 import { styled, useTheme } from "@mui/material/styles";
 import Button from "@mui/material/Button";
-
+import HomeIcon from "@mui/icons-material/Home";
+import AddIcon from "@mui/icons-material/Add";
 import Box from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -21,17 +22,21 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import { useNavigate } from "react-router-dom";
 import AppRoutes from "./AppRoutes";
-
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+import { Grid } from "@mui/material";
+import MyList from "../../MyList/MyList";
 const routes = [
   {
     text: "Home",
     path: "/",
     id: "1",
+    icon: "H",
   },
   {
     text: "Add your own category ",
     path: "/addnewcategory",
     id: "2",
+    icon: "A",
   },
 ];
 
@@ -130,6 +135,13 @@ const Navigation = (props, children) => {
           <Typography variant="h6" noWrap component="div" sx={{ flexGrow: 1 }}>
             Your shopping list
           </Typography>
+
+          {loggedIn && (
+            <>
+              <MyList />
+              <ShoppingCartIcon />
+            </>
+          )}
           {loggedIn && (
             <Button color="inherit" onClick={logOutHandler}>
               Log Out
@@ -169,7 +181,10 @@ const Navigation = (props, children) => {
               text={route.text}
             >
               <ListItemButton>
-                <ListItemIcon></ListItemIcon>
+                <ListItemIcon>
+                  {route.icon === "H" && <HomeIcon />}
+                  {route.icon === "A" && <AddIcon />}
+                </ListItemIcon>
                 <ListItemText primary={route.text} />
               </ListItemButton>
             </ListItem>
@@ -180,7 +195,9 @@ const Navigation = (props, children) => {
           {["Add a new client"].map((text, index) => (
             <ListItem key={text} disablePadding>
               <ListItemButton>
-                <ListItemIcon></ListItemIcon>
+                <ListItemIcon>
+                  <AddIcon />
+                </ListItemIcon>
                 <ListItemText primary={text} />
               </ListItemButton>
             </ListItem>
