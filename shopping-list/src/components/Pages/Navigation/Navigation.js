@@ -23,20 +23,46 @@ import ListItemText from "@mui/material/ListItemText";
 import { useNavigate } from "react-router-dom";
 import AppRoutes from "./AppRoutes";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
-import { Grid } from "@mui/material";
 import MyList from "../../MyList/MyList";
-const routes = [
+import ReceiptLongIcon from "@mui/icons-material/ReceiptLong";
+const routes_client = [
   {
     text: "Home",
     path: "/",
     id: "1",
-    icon: "H",
+    icon: <HomeIcon />,
   },
   {
     text: "Add your own category ",
     path: "/addnewcategory",
     id: "2",
-    icon: "A",
+    icon: <AddIcon />,
+  },
+  {
+    text: "Your last list",
+    path: "/lastlist",
+    id: "3",
+    icon: <ReceiptLongIcon />,
+  },
+];
+const routes_admin = [
+  {
+    text: "Home",
+    path: "/",
+    id: "1",
+    icon: <HomeIcon />,
+  },
+  {
+    text: "Add a category ",
+    path: "/addnewcategory",
+    id: "2",
+    icon: <AddIcon />,
+  },
+  {
+    text: "Add new client",
+    path: "/addnewclientform",
+    id: "1",
+    icon: <AddIcon />,
   },
 ];
 
@@ -92,13 +118,18 @@ const Navigation = (props, children) => {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
   const [loggedIn, setLoggedIn] = useState(false);
-
+  const [showList, setShowList] = useState(false);
   useEffect(() => {
     if (localStorage.getItem("authenticated")) {
       setLoggedIn(true);
     }
   }, []);
-
+  const onShowCart = () => {
+    setShowList(true);
+  };
+  const onCloseCart = () => {
+    setShowList(false);
+  };
   const logOutHandler = () => {
     localStorage.removeItem("authenticated");
     setLoggedIn(false);
@@ -138,8 +169,8 @@ const Navigation = (props, children) => {
 
           {loggedIn && (
             <>
-              <MyList />
-              <ShoppingCartIcon />
+              {showList && <MyList onClose={onCloseCart} />}
+              <ShoppingCartIcon onClick={onShowCart} />
             </>
           )}
           {loggedIn && (
@@ -173,7 +204,7 @@ const Navigation = (props, children) => {
         </DrawerHeader>
         <Divider />
         <List>
-          {routes.map((route) => (
+          {routes_client.map((route) => (
             <ListItem
               key={route.id}
               disablePadding
@@ -181,10 +212,7 @@ const Navigation = (props, children) => {
               text={route.text}
             >
               <ListItemButton>
-                <ListItemIcon>
-                  {route.icon === "H" && <HomeIcon />}
-                  {route.icon === "A" && <AddIcon />}
-                </ListItemIcon>
+                <ListItemIcon>{route.icon}</ListItemIcon>
                 <ListItemText primary={route.text} />
               </ListItemButton>
             </ListItem>
@@ -192,13 +220,16 @@ const Navigation = (props, children) => {
         </List>
         <Divider />
         <List>
-          {["Add a new client"].map((text, index) => (
-            <ListItem key={text} disablePadding>
+          {routes_admin.map((route) => (
+            <ListItem
+              key={route.id}
+              disablePadding
+              onClick={() => nav(route.path)}
+              text={route.text}
+            >
               <ListItemButton>
-                <ListItemIcon>
-                  <AddIcon />
-                </ListItemIcon>
-                <ListItemText primary={text} />
+                <ListItemIcon>{route.icon}</ListItemIcon>
+                <ListItemText primary={route.text} />
               </ListItemButton>
             </ListItem>
           ))}

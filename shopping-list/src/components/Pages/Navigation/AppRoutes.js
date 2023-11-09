@@ -3,6 +3,10 @@ import LoginForm from "../LoginForm/LoginForm";
 import { Navigate, Routes, Route } from "react-router-dom";
 import AddCategoryForm from "../AddCategoryPage/AddCategoryForm";
 import Products from "../Products/Products";
+import LastList from "../LastList/LastList";
+import AddNewClient from "../../AdminOnly/AddNewClient";
+import AddAgain from "../LastList/AddAgain";
+import AddProduct from "../AddCategoryPage/AddProduct";
 const ProtectedRoute = ({ redirectPath = "/login", children }) => {
   if (!localStorage.getItem("authenticated")) {
     return <Navigate to={redirectPath} replace />;
@@ -49,6 +53,42 @@ function AppRoutes({ loggedIn, setLoggedIn }) {
         element={
           <ProtectedRoute>
             <Products />
+          </ProtectedRoute>
+        }
+      ></Route>
+      <Route
+        exact
+        path="/lastlist"
+        element={
+          <ProtectedRoute>
+            <LastList />
+          </ProtectedRoute>
+        }
+      ></Route>
+      <Route
+        exact
+        path="/addnewclientform"
+        element={
+          <ProtectedRoute>
+            <AddNewClient />
+          </ProtectedRoute>
+        }
+      ></Route>
+      <Route
+        exact
+        path="/addagain"
+        element={
+          <ProtectedRoute>
+            <AddAgain />
+          </ProtectedRoute>
+        }
+      ></Route>
+      <Route
+        exact
+        path="/addproduct"
+        element={
+          <ProtectedRoute>
+            <AddProduct />
           </ProtectedRoute>
         }
       ></Route>

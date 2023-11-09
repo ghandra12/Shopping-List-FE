@@ -2,10 +2,12 @@ import React, { useState } from "react";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Grid from "@mui/material/Grid";
+import { useNavigate } from "react-router-dom";
 
 const AddCategoryForm = (props) => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
+  const navigate = useNavigate();
   const onTitleChange = (event) => {
     setTitle(event.target.value);
   };
@@ -13,7 +15,9 @@ const AddCategoryForm = (props) => {
   const onDescriptionChange = (event) => {
     setDescription(event.target.value);
   };
-
+  const goToAddProductsPageHandler = () => {
+    navigate("/addproduct");
+  };
   const onSubmitHandler = (event) => {
     event.preventDefault();
     // if (email.length >= 8 && password.length >= 8) {
@@ -58,8 +62,12 @@ const AddCategoryForm = (props) => {
           />
         </Grid>
         <Grid item>
-          <Button type="submit" variant="contained">
-            Add!
+          <Button
+            type="submit"
+            variant="contained"
+            onClick={goToAddProductsPageHandler}
+          >
+            Next
           </Button>
         </Grid>
       </Grid>

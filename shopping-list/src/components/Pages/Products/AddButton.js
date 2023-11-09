@@ -11,14 +11,14 @@ const AddButton = (props) => {
   };
   return (
     <form onSubmit={onSubmitHandler}>
-      <label>Amount: </label>
+      <label>Quantity: </label>
       <input
         type="number"
         max="10"
         min="1"
         defaultValue={1}
-        onChange={props.onChange}
         amount={props.amount}
+        name={props.name}
       ></input>
       <IconButton
         color="primary"
