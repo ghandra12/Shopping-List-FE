@@ -13,13 +13,12 @@ const Category = (props) => {
         <CardMedia
           component="img"
           height="140"
-          image={props.image}
-          alt={props.alt}
+
           // src={props.image}
         />
         <CardContent>
           <Typography gutterBottom variant="h5" component="div">
-            {props.category}
+            {props.name}
           </Typography>
           <Typography
             sx={{
