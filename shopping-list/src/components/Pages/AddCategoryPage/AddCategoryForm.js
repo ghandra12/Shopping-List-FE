@@ -1,13 +1,28 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Grid from "@mui/material/Grid";
+import axios from "axios";
 import { useNavigate } from "react-router-dom";
-
+import CloudUploadIcon from "@mui/icons-material/CloudUpload";
+import { styled } from "@mui/material/styles";
+const VisuallyHiddenInput = styled("input")({
+  clip: "rect(0 0 0 0)",
+  clipPath: "inset(50%)",
+  height: 1,
+  overflow: "hidden",
+  position: "absolute",
+  bottom: 0,
+  left: 0,
+  whiteSpace: "nowrap",
+  width: 1,
+});
 const AddCategoryForm = (props) => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const navigate = useNavigate();
+  const [image, setImage] = useState(null);
+  const [imageUrl, setImageUrl] = useState(null);
   const onTitleChange = (event) => {
     setTitle(event.target.value);
   };
@@ -15,19 +30,21 @@ const AddCategoryForm = (props) => {
   const onDescriptionChange = (event) => {
     setDescription(event.target.value);
   };
-  const goToAddProductsPageHandler = () => {
-    navigate("/addproduct");
+  const onImageChange = (e) => {
+    setImageUrl(URL.createObjectURL(e.target.files[0]));
+    setImage(e.target.files[0]);
   };
   const onSubmitHandler = (event) => {
     event.preventDefault();
-    // if (email.length >= 8 && password.length >= 8) {
-    //   localStorage.setItem("authenticated", true);
-    //   console.info(props);
-    //   props.setLoggedIn(true);
-    //   navigate("/");
-    // } else {
-    //   alert("Email and password should have at least 8 characters!");
-    // }
+    let form = new FormData();
+    form.append("name", title);
+    form.append("description", description);
+    if (image !== null) {
+      form.append("image", image);
+    }
+    axios.post(`https://localhost:7247/Category`, form).then(() => {
+      navigate("/");
+    });
   };
   return (
     <form onSubmit={onSubmitHandler}>
@@ -52,8 +69,7 @@ const AddCategoryForm = (props) => {
         <Grid item>
           <TextField
             id="outlined-multiline-static"
-            label="Description
-            "
+            label="Description"
             multiline
             rows={6}
             defaultValue="Type some description"
@@ -63,11 +79,26 @@ const AddCategoryForm = (props) => {
         </Grid>
         <Grid item>
           <Button
-            type="submit"
+            component="label"
             variant="contained"
-            onClick={goToAddProductsPageHandler}
+            startIcon={<CloudUploadIcon />}
           >
-            Next
+            Upload file
+            <VisuallyHiddenInput
+              type="file"
+              accept="image/*"
+              onChange={onImageChange}
+            />
+          </Button>
+        </Grid>
+        <Grid item>
+          {image && (
+            <img src={imageUrl} alt="img" width="200px" height="200px" />
+          )}
+        </Grid>
+        <Grid item>
+          <Button type="submit" variant="contained">
+            Save
           </Button>
         </Grid>
       </Grid>

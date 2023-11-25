@@ -6,7 +6,7 @@ import Products from "../Products/Products";
 import LastList from "../LastList/LastList";
 import AddNewClient from "../../AdminOnly/AddNewClient";
 import AddAgain from "../LastList/AddAgain";
-import AddProduct from "../AddCategoryPage/AddProduct";
+import AddProduct from "../AddProduct/AddProduct";
 const ProtectedRoute = ({ redirectPath = "/login", children }) => {
   if (!localStorage.getItem("authenticated")) {
     return <Navigate to={redirectPath} replace />;
@@ -80,6 +80,15 @@ function AppRoutes({ loggedIn, setLoggedIn }) {
         element={
           <ProtectedRoute>
             <AddAgain />
+          </ProtectedRoute>
+        }
+      ></Route>
+      <Route
+        exact
+        path="/addproduct"
+        element={
+          <ProtectedRoute>
+            <AddProduct />
           </ProtectedRoute>
         }
       ></Route>

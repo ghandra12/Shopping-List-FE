@@ -2,10 +2,6 @@ import React, { useState } from "react";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import IconButton from "@mui/material/IconButton";
 const AddButton = (props) => {
-  //const [number, setNumber] = useState(1);
-  // const onChangeHandler = (event) => {
-  //   setNumber(event.target.value);
-  // };
   const onSubmitHandler = (event) => {
     event.preventDefault();
   };

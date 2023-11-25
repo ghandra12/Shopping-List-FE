@@ -15,15 +15,18 @@ const Products = (props) => {
     setAmount(event.target.value);
   };
   const [products, setProducts] = useState([]);
+
+  const location = useLocation();
+
   useEffect(() => {
+    debugger;
     axios
       .get(`https://localhost:7247/Product/${location.state.categoryId}`)
       .then((response) => {
         setProducts(response.data);
-        debugger;
       });
-  }, []);
-  const location = useLocation();
+  }, [location.state.categoryId]);
+
   return (
     <Grid container spacing={6}>
       {products.map((product) => (
@@ -34,7 +37,11 @@ const Products = (props) => {
                 component="img"
                 alt="product image"
                 height="150"
-                image={product.image}
+                image={
+                  product.image !== null
+                    ? product.image
+                    : require("../../Images/no_img.jpg")
+                }
               />
               <CardContent>
                 <Typography gutterBottom variant="h5" component="div">

@@ -4,18 +4,13 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
-import { Button, CardActionArea, CardActions } from "@mui/material";
+import { CardActionArea } from "@mui/material";
 
 const Category = (props) => {
   return (
     <Card sx={{ maxWidth: 345, height: 330 }}>
       <CardActionArea>
-        <CardMedia
-          component="img"
-          height="140"
-
-          // src={props.image}
-        />
+        <CardMedia component="img" height="140" image={props.image} />
         <CardContent>
           <Typography gutterBottom variant="h5" component="div">
             {props.name}
@@ -35,11 +30,6 @@ const Category = (props) => {
           </Typography>
         </CardContent>
       </CardActionArea>
-      <CardActions>
-        <Button size="small" color="primary">
-          See more
-        </Button>
-      </CardActions>
     </Card>
   );
 };

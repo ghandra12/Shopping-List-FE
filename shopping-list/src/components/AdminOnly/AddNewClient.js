@@ -3,12 +3,15 @@ import Button from "@mui/material/Button";
 import Grid from "@mui/material/Grid";
 import TextField from "@mui/material/TextField";
 import { useState } from "react";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 const AddNewClient = (props) => {
   const [lastName, setLastName] = useState("");
   const [firstName, setFirstName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
+  const navigate = useNavigate();
   const onChangeFirstName = (event) => {
     setFirstName(event.target.value);
   };
@@ -27,6 +30,17 @@ const AddNewClient = (props) => {
 
   const onSubmitHandler = (event) => {
     event.preventDefault();
+    const client = {
+      FirstName: firstName,
+      LastName: lastName,
+      Email: email,
+      Password: password,
+      PhoneNumber: phoneNumber,
+    };
+
+    axios.post(`https://localhost:7247/Client`, client).then(() => {
+      navigate("/");
+    });
   };
   return (
     <form onSubmit={onSubmitHandler}>

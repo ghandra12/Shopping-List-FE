@@ -44,6 +44,12 @@ const routes_client = [
     id: "3",
     icon: <ReceiptLongIcon />,
   },
+  {
+    text: "Add a product ",
+    path: "/addproduct",
+    id: "2",
+    icon: <AddIcon />,
+  },
 ];
 const routes_admin = [
   {
@@ -62,6 +68,12 @@ const routes_admin = [
     text: "Add new client",
     path: "/addnewclientform",
     id: "1",
+    icon: <AddIcon />,
+  },
+  {
+    text: "Add a product ",
+    path: "/addproduct",
+    id: "2",
     icon: <AddIcon />,
   },
 ];
